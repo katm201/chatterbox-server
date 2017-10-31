@@ -1,18 +1,5 @@
-{"createdAt":"2017-10-31T21:09:07.062Z","objectId":1509484147062,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T21:09:07.066Z","objectId":1509484147066,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T21:09:07.090Z","objectId":1509484147090,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T21:09:07.092Z","objectId":1509484147092,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
 {"createdAt":"2017-10-31T21:09:36.760Z","objectId":1509484176760,"username":"katherine","text":"hi there","message":"hi there","roomname":"fireplace"}
 {"createdAt":"2017-10-31T21:10:11.529Z","objectId":1509484211529,"username":"katherine","text":"getting new messages!","message":"getting new messages!","roomname":"lobby"}
 {"createdAt":"2017-10-31T21:45:32.218Z","objectId":1509486332218,"username":"katherine","text":"it's me again","message":"it's me again","roomname":"lobby"}
-{"createdAt":"2017-10-31T21:45:47.357Z","objectId":1509486347357,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T21:45:47.363Z","objectId":1509486347363,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T21:45:47.383Z","objectId":1509486347383,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T21:45:47.385Z","objectId":1509486347385,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T22:02:17.024Z","objectId":1509487337024,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T22:02:17.028Z","objectId":1509487337028,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T22:02:17.053Z","objectId":1509487337053,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T22:02:17.056Z","objectId":1509487337056,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
-{"createdAt":"2017-10-31T22:03:57.236Z","objectId":1509487437236,"username":"katherine","text":"hello!","message":"hello!","roomname":"lobby"}
 {"createdAt":"2017-10-31T22:04:46.802Z","objectId":1509487486802,"username":"katherine","text":"checking again!","message":"checking again!","roomname":"lobby"}
 {"createdAt":"2017-10-31T22:04:52.921Z","objectId":1509487492921,"username":"katherine","text":"test test","message":"test test","roomname":"fireplace"}
