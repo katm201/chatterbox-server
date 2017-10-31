@@ -54,12 +54,16 @@ var requestHandler = function(request, response) {
       var id = date.getTime();
     
       request.on('end', chunk => {
-        var message = JSON.parse(body);
-        message.createdAt = date;
-        message.objectId = id;
-        console.log(message);
-        object = JSON.stringify(message);
-        console.log(object);
+        body = JSON.parse(body);
+        
+        var object = {};
+        object.createdAt = date;
+        object.objectId = id;
+        object.username = body.username;
+        object.text = body.message;
+
+        object = JSON.stringify(object);
+
         fs.appendFile('storage.txt', object + '\n', function(err, data) {
           if (err) {
             return console.error(error);
@@ -92,7 +96,6 @@ var requestHandler = function(request, response) {
         object.results = stringArray.map(function(message) {
           return JSON.parse(message);
         });
-        // object.results = stringArray;
         
         // send response
         response.writeHead(statusCode, headers);
