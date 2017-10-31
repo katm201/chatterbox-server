@@ -3,3 +3,10 @@
 {"createdAt":"2017-10-31T21:45:32.218Z","objectId":1509486332218,"username":"katherine","text":"it's me again","message":"it's me again","roomname":"lobby"}
 {"createdAt":"2017-10-31T22:04:46.802Z","objectId":1509487486802,"username":"katherine","text":"checking again!","message":"checking again!","roomname":"lobby"}
 {"createdAt":"2017-10-31T22:04:52.921Z","objectId":1509487492921,"username":"katherine","text":"test test","message":"test test","roomname":"fireplace"}
+{"username":"katherine","message":"new test","roomname":"fireplace","createdAt":"2017-10-31T22:10:37.664Z","objectId":1509487837664,"text":"new test"}
+{"username":"katherine","message":"just updated the post function","roomname":"lobby","createdAt":"2017-10-31T22:10:51.681Z","objectId":1509487851681,"text":"just updated the post function"}
+{"username":"katherine","message":"did some refactoring","roomname":"lobby","createdAt":"2017-10-31T22:12:54.847Z","objectId":1509487974847,"text":"did some refactoring"}
+{"username":"katherine","message":"did some more refactoring","roomname":"fireplace","createdAt":"2017-10-31T22:13:05.410Z","objectId":1509487985410,"text":"did some more refactoring"}
+{"username":"katherine","message":"did some more updates","roomname":"lobby","createdAt":"2017-10-31T22:14:39.989Z","objectId":1509488079989,"text":"did some more updates"}
+{"username":"katherine","message":"did some new updates","roomname":"fireplace","createdAt":"2017-10-31T22:14:50.304Z","objectId":1509488090304,"text":"did some new updates"}
+{"username":"katherine","message":"new room!","roomname":"testing room","createdAt":"2017-10-31T22:15:02.095Z","objectId":1509488102095,"text":"new room!"}

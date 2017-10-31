@@ -29,57 +29,48 @@ var requestHandler = function(request, response) {
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
   var urlInfo = url.parse(request.url);
   var headers = defaultCorsHeaders;
-  var preferredRoute = '/classes/messages';
   
   var query = urlInfo.query;
   
-  if (urlInfo.pathname === preferredRoute) {
-    var method = request.method;
-    var reqHeaders = request.headers;
+  if (urlInfo.pathname === '/classes/messages') {
+
     var type = 'text/plain';
     if (request.headers !== undefined && (request.headers['content-type'] !== undefined)) {
       type = request.headers['content-type']; 
     }
     headers['Content-Type'] = type;    
     
-    if (method === 'POST') {
+    if (request.method === 'POST') {
+      // build the post request body
       var body = '';
       request.on('data', chunk => { body += chunk; });
       
       var date = new Date();
       var id = date.getTime();
     
+      // add post request to the storage file
       request.on('end', chunk => {
         body[0] === '{' ? body = JSON.parse(body) : body = querystring.parse(body);
         
-        var object = {};
-        object.createdAt = date;
-        object.objectId = id;
-        object.username = body.username;
-        object.text = body.message || body.text;
-        object.message = body.message || body.text;
-        object.roomname = body.roomname;
+        body.createdAt = date;
+        body.objectId = id;
+        body.text = body.message || body.text;
+        body.message = body.message || body.text;
 
-        object = JSON.stringify(object);
-
-        fs.appendFile('storage.txt', object + '\n', function(err, data) {
+        fs.appendFile('storage.txt', JSON.stringify(body) + '\n', function(err, data) {
           if (err) {
             return console.error(error);
           }
         });  
       });
-      
+      // send response
       response.writeHead(201, headers);
       response.end('Message sent to server.');
-    } else if (method === 'OPTIONS') {
+    } else if (request.method === 'OPTIONS') {
       // send response
       response.writeHead(200, headers);
       response.end();
-    } else if (method === 'GET') {
-      // build the request
-      var body = '';
-      request.on('data', chunk => { body.concat(chunk); });
-      
+    } else if (request.method === 'GET') {
       // read the storage file
       fs.readFile('storage.txt', 'utf8', function(err, data) {
         if (err) {
