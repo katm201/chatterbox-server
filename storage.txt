@@ -1,4 +1,6 @@
-{"createdAt":"2017-10-31T19:31:42.095Z","objectId":1509478302095,"username":"Jono","text":"Do my bidding!"}
-{"createdAt":"2017-10-31T19:31:42.100Z","objectId":1509478302100,"username":"Jono","text":"Do my bidding!"}
-{"createdAt":"2017-10-31T19:31:42.122Z","objectId":1509478302122,"username":"Jono","text":"Do my bidding!"}
-{"createdAt":"2017-10-31T19:31:42.124Z","objectId":1509478302124,"username":"Jono","text":"Do my bidding!"}
+{"createdAt":"2017-10-31T21:09:07.062Z","objectId":1509484147062,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
+{"createdAt":"2017-10-31T21:09:07.066Z","objectId":1509484147066,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
+{"createdAt":"2017-10-31T21:09:07.090Z","objectId":1509484147090,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
+{"createdAt":"2017-10-31T21:09:07.092Z","objectId":1509484147092,"username":"Jono","text":"Do my bidding!","message":"Do my bidding!"}
+{"createdAt":"2017-10-31T21:09:36.760Z","objectId":1509484176760,"username":"katherine","text":"hi there","message":"hi there","roomname":"fireplace"}
+{"createdAt":"2017-10-31T21:10:11.529Z","objectId":1509484211529,"username":"katherine","text":"getting new messages!","message":"getting new messages!","roomname":"lobby"}

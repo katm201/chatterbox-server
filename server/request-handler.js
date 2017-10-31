@@ -46,8 +46,6 @@ var requestHandler = function(request, response) {
       var body = '';
       request.on('data', chunk => { body += chunk; });
       
-
-      
       var date = new Date();
       var id = date.getTime();
     
@@ -82,6 +80,7 @@ var requestHandler = function(request, response) {
         object.username = parsedBody.username;
         object.text = parsedBody.message || parsedBody.text;
         object.message = parsedBody.message || parsedBody.text;
+        object.roomname = parsedBody.roomname;
 
         object = JSON.stringify(object);
 
