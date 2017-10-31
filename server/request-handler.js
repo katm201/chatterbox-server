@@ -67,9 +67,9 @@ var requestHandler = function(request, response) {
     }
     
     var reqHeaders = request.headers;
-    var results = [];
-    var body = '';
-    request.on('data', chunk => { results.push(chunk); body.concat(chunk); });
+    var object = {};
+    object.results = [];
+    request.on('data', chunk => { object.results.push(chunk); });
     
     // Tell the client we are sending them plain text.
     //
@@ -86,7 +86,8 @@ var requestHandler = function(request, response) {
     // which includes the status and all headers.
 
     response.writeHead(statusCode, headers);
-    response.end(body);
+    // response.write(body);
+    response.end(JSON.stringify(object));
   } else {
     // send 404 not found
     var statusCode = 404;
