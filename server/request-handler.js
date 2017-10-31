@@ -1,6 +1,6 @@
 var url = require('url');
 var fs = require('fs');
-
+var querystring = require('querystring');
 /*************************************************************
 
 You should implement your request handler function in this file.
@@ -50,37 +50,15 @@ var requestHandler = function(request, response) {
       var id = date.getTime();
     
       request.on('end', chunk => {
-        let parsedBody;
-        
-        if (body[0] === '{') {
-          parsedBody = JSON.parse(body);
-        } else {
-          let bodyFixedSpaces = '';
-          body.split('').forEach(function(character) {
-            if (character === '+') {
-              bodyFixedSpaces += ' ';
-            } else {
-              bodyFixedSpaces += character;
-            }
-          });
-          let bodyElements = bodyFixedSpaces.split('&');
-          let elements = [];
-          bodyElements.forEach(function(item) {
-            elements = elements.concat(item.split('='));
-          });
-          parsedBody = {};
-          for (var i = 1; i < elements.length; i++) {
-            parsedBody[elements[i - 1]] = elements[i];
-          }
-        }
+        body[0] === '{' ? body = JSON.parse(body) : body = querystring.parse(body);
         
         var object = {};
         object.createdAt = date;
         object.objectId = id;
-        object.username = parsedBody.username;
-        object.text = parsedBody.message || parsedBody.text;
-        object.message = parsedBody.message || parsedBody.text;
-        object.roomname = parsedBody.roomname;
+        object.username = body.username;
+        object.text = body.message || body.text;
+        object.message = body.message || body.text;
+        object.roomname = body.roomname;
 
         object = JSON.stringify(object);
 

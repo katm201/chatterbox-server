@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "fs": "0.0.1-security",
+    "querystring": "^0.2.0",
     "underscore": "^1.8.3"
   }
 }
