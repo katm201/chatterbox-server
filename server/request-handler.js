@@ -46,9 +46,19 @@ var requestHandler = function(request, response) {
     
     if (method === 'POST') {
       statusCode = 201;
-
-      request.on('data', chunk => { 
-        fs.appendFile('storage.txt', chunk + '~', function(err, data) {
+      messageCount++;
+      
+      var object = {};
+      var body = '';
+      request.on('data', chunk => { body += chunk; });
+      
+      object.createdAt = new Date();
+      object.objectId = messageCount;
+    
+      request.on('end', chunk => {
+        object.message = JSON.parse(body);
+        object = JSON.stringify(object);
+        fs.appendFile('storage.txt', object + '~', function(err, data) {
           if (err) {
             return console.error(error);
           }
