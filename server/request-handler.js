@@ -42,11 +42,7 @@ var requestHandler = function(request, response) {
     }
     headers['Content-Type'] = type;    
     
-    var statusCode;
-    
     if (method === 'POST') {
-      statusCode = 201;
-      
       var body = '';
       request.on('data', chunk => { body += chunk; });
       
@@ -60,7 +56,8 @@ var requestHandler = function(request, response) {
         object.createdAt = date;
         object.objectId = id;
         object.username = body.username;
-        object.text = body.message;
+        object.text = body.message || body.text;
+        object.message = body.message || body.text;
 
         object = JSON.stringify(object);
 
@@ -71,11 +68,13 @@ var requestHandler = function(request, response) {
         });  
       });
       
-      response.writeHead(statusCode, headers);
+      response.writeHead(201, headers);
       response.end('Message sent to server.');
-    } else if (method === 'GET' || method === 'OPTIONS') {
-      statusCode = 200;
-      
+    } else if (method === 'OPTIONS') {
+      // send response
+      response.writeHead(200, headers);
+      response.end();
+    } else if (method === 'GET') {
       // build the request
       var body = '';
       request.on('data', chunk => { body.concat(chunk); });
@@ -98,13 +97,13 @@ var requestHandler = function(request, response) {
         });
         
         // send response
-        response.writeHead(statusCode, headers);
+        response.writeHead(200, headers);
         response.end(JSON.stringify(object));
       });
     } 
   } else {
-    var statusCode = 404;
-    response.writeHead(statusCode, headers);
+    let statusCode = 404;
+    response.writeHead(404, headers);
     response.end('404 not found');
   }
 };
