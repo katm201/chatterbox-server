@@ -57,7 +57,6 @@ var requestHandler = function(request, response) {
   
   if (urlInfo.pathname === preferredRoute) {
     // process the request
-
     var method = request.method;
     var statusCode;    
     
@@ -68,17 +67,20 @@ var requestHandler = function(request, response) {
     }
     
     var reqHeaders = request.headers;
+    var results = [];
     var body = '';
-    request.on('data', chunk => { body.concat(chunk); });
+    request.on('data', chunk => { results.push(chunk); body.concat(chunk); });
     
     // Tell the client we are sending them plain text.
     //
     // You will need to change this if you are sending something
     // other than plain text, like JSON or HTML.
     
-    // var type = reqHeaders['content-type'] || 'text/plain';
-    headers['Content-Type'] = 'text/plain';
-    // console.log(type);
+    var type = 'text/plain';
+    if (request.headers !== undefined && (request.headers['content-type'] !== undefined)) {
+      type = request.headers['content-type']; 
+    }
+    headers['Content-Type'] = type;
     
     // .writeHead() writes to the request line and headers of the response,
     // which includes the status and all headers.
@@ -87,7 +89,8 @@ var requestHandler = function(request, response) {
     response.end(body);
   } else {
     // send 404 not found
-    response.statusCode = 404;
+    var statusCode = 404;
+    response.writeHead(statusCode, headers);
     response.end('404 not found');
   }
 
