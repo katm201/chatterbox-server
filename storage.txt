@@ -1,1 +1,4 @@
-{"createdAt":"2017-10-31T03:47:06.725Z","objectId":1,"message":{"username":"Jono","message":"Do my bidding!"}}~{"createdAt":"2017-10-31T03:47:06.729Z","objectId":2,"message":{"username":"Jono","message":"Do my bidding!"}}~{"createdAt":"2017-10-31T03:47:06.758Z","objectId":1,"message":{"username":"Jono","message":"Do my bidding!"}}~{"createdAt":"2017-10-31T03:47:06.759Z","objectId":2,"message":{"username":"Jono","message":"Do my bidding!"}}~
+{"username":"Jono","message":"Do my bidding!","createdAt":"2017-10-31T17:58:17.442Z","objectId":1509472697442}
+{"username":"Jono","message":"Do my bidding!","createdAt":"2017-10-31T17:58:17.446Z","objectId":1509472697446}
+{"username":"Jono","message":"Do my bidding!","createdAt":"2017-10-31T17:58:17.478Z","objectId":1509472697478}
+{"username":"Jono","message":"Do my bidding!","createdAt":"2017-10-31T17:58:17.480Z","objectId":1509472697480}

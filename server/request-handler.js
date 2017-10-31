@@ -15,8 +15,6 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 
-var messageCount = 0;
-
 var defaultCorsHeaders = {
   'access-control-allow-origin': '*',
   'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -46,19 +44,19 @@ var requestHandler = function(request, response) {
     
     if (method === 'POST') {
       statusCode = 201;
-      messageCount++;
       
-      var object = {};
       var body = '';
       request.on('data', chunk => { body += chunk; });
       
-      object.createdAt = new Date();
-      object.objectId = messageCount;
+      var date = new Date();
+      var id = date.getTime();
     
       request.on('end', chunk => {
-        object.message = JSON.parse(body);
-        object = JSON.stringify(object);
-        fs.appendFile('storage.txt', object + '~', function(err, data) {
+        var message = JSON.parse(body);
+        message.createdAt = date;
+        message.objectId = id;
+        object = JSON.stringify(message);
+        fs.appendFile('storage.txt', object + '\n', function(err, data) {
           if (err) {
             return console.error(error);
           }
@@ -75,14 +73,13 @@ var requestHandler = function(request, response) {
       request.on('data', chunk => { body.concat(chunk); });
       
       // read the storage file
-      fs.readFile('storage.txt', function(err, data) {
+      fs.readFile('storage.txt', 'utf8', function(err, data) {
         if (err) {
-          return console.error(error);
+          return console.error(err);
         }
         
-        // formatting object to respond with
         var object = {};
-        object.results = [];
+        object.results = data.split('\n');
         
         // send response
         response.writeHead(statusCode, headers);
@@ -97,9 +94,3 @@ var requestHandler = function(request, response) {
 };
 
 module.exports.requestHandler = requestHandler;
-
-// ls methods to keep in mind
-  // mkdir()
-  // readdir()
-  // readFile()
-  // writeFile()
