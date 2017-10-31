@@ -46,18 +46,42 @@ var requestHandler = function(request, response) {
       var body = '';
       request.on('data', chunk => { body += chunk; });
       
+
+      
       var date = new Date();
       var id = date.getTime();
     
       request.on('end', chunk => {
-        body = JSON.parse(body);
+        let parsedBody;
+        
+        if (body[0] === '{') {
+          parsedBody = JSON.parse(body);
+        } else {
+          let bodyFixedSpaces = '';
+          body.split('').forEach(function(character) {
+            if (character === '+') {
+              bodyFixedSpaces += ' ';
+            } else {
+              bodyFixedSpaces += character;
+            }
+          });
+          let bodyElements = bodyFixedSpaces.split('&');
+          let elements = [];
+          bodyElements.forEach(function(item) {
+            elements = elements.concat(item.split('='));
+          });
+          parsedBody = {};
+          for (var i = 1; i < elements.length; i++) {
+            parsedBody[elements[i - 1]] = elements[i];
+          }
+        }
         
         var object = {};
         object.createdAt = date;
         object.objectId = id;
-        object.username = body.username;
-        object.text = body.message || body.text;
-        object.message = body.message || body.text;
+        object.username = parsedBody.username;
+        object.text = parsedBody.message || parsedBody.text;
+        object.message = parsedBody.message || parsedBody.text;
 
         object = JSON.stringify(object);
 
