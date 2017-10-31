@@ -54,20 +54,31 @@ var requestHandler = function(request, response) {
   var headers = defaultCorsHeaders;
 
   var preferredRoute = '/classes/messages';
+  
   if (urlInfo.pathname === preferredRoute) {
     // process the request
-    var statusCode = 200;
+
     var method = request.method;
+    var statusCode;    
+    
+    if (method === 'GET') {
+      statusCode = 200;
+    } else if (method === 'POST') {
+      statusCode = 201;
+    }
+    
     var reqHeaders = request.headers;
     var body = '';
     request.on('data', chunk => { body.concat(chunk); });
     
-
     // Tell the client we are sending them plain text.
     //
     // You will need to change this if you are sending something
     // other than plain text, like JSON or HTML.
+    
+    // var type = reqHeaders['content-type'] || 'text/plain';
     headers['Content-Type'] = 'text/plain';
+    // console.log(type);
     
     // .writeHead() writes to the request line and headers of the response,
     // which includes the status and all headers.
