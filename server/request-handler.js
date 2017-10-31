@@ -57,7 +57,9 @@ var requestHandler = function(request, response) {
         var message = JSON.parse(body);
         message.createdAt = date;
         message.objectId = id;
+        console.log(message);
         object = JSON.stringify(message);
+        console.log(object);
         fs.appendFile('storage.txt', object + '\n', function(err, data) {
           if (err) {
             return console.error(error);
@@ -81,7 +83,16 @@ var requestHandler = function(request, response) {
         }
         
         var object = {};
-        object.results = data.split('\n');
+        var stringArray = data.split('\n');
+        stringArray = stringArray.filter(function(item) { 
+          if (item !== '') {
+            return true;
+          }
+        });
+        object.results = stringArray.map(function(message) {
+          return JSON.parse(message);
+        });
+        // object.results = stringArray;
         
         // send response
         response.writeHead(statusCode, headers);
