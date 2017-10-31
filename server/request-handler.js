@@ -31,6 +31,8 @@ var requestHandler = function(request, response) {
   var headers = defaultCorsHeaders;
   var preferredRoute = '/classes/messages';
   
+  var query = urlInfo.query;
+  
   if (urlInfo.pathname === preferredRoute) {
     var method = request.method;
     var reqHeaders = request.headers;
@@ -65,7 +67,7 @@ var requestHandler = function(request, response) {
       
       response.writeHead(statusCode, headers);
       response.end('Message sent to server.');
-    } else if (method === 'GET') {
+    } else if (method === 'GET' || method === 'OPTIONS') {
       statusCode = 200;
       
       // build the request
