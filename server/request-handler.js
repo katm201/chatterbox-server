@@ -46,12 +46,10 @@ var actions = {
       object.results = stringArray.map(function(message) {
         return JSON.parse(message);
       });
-
-      // checks for queries to re-sort order
-      // causes it to go slow and have trouble re-rendering
-      // if (querystring.parse(query).order !== '-createdAt') {
-      //   object.results = object.results.reverse();
-      // }
+      
+      if (query && querystring.parse(query).order === '-createdAt') {
+        object.results = object.results.reverse();
+      }
       
       sendResponse(response, object);
     });
