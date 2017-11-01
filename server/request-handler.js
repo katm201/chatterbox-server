@@ -15,11 +15,18 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 
-var defaultCorsHeaders = {
+var headers = {
   'access-control-allow-origin': '*',
   'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
   'access-control-allow-headers': 'content-type, accept',
-  'access-control-max-age': 10 // Seconds.
+  'access-control-max-age': 10, // Seconds.
+  'content-type': 'application/json'
+};
+
+var sendResponse = function(response, data, statusCode) {
+  statusCode = statusCode || 200;
+  response.writeHead(statusCode, headers);
+  response.end(JSON.stringify(data));
 };
 
 var requestHandler = function(request, response) {
@@ -28,17 +35,10 @@ var requestHandler = function(request, response) {
   
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
   var urlInfo = url.parse(request.url);
-  var headers = defaultCorsHeaders;
   
   var query = urlInfo.query;
   
-  if (urlInfo.pathname === '/classes/messages') {
-
-    var type = 'text/plain';
-    if (request.headers !== undefined && (request.headers['content-type'] !== undefined)) {
-      type = request.headers['content-type']; 
-    }
-    headers['Content-Type'] = type;    
+  if (urlInfo.pathname === '/classes/messages') {  
     
     if (request.method === 'POST') {
       // build the post request body
