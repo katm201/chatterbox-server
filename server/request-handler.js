@@ -63,13 +63,10 @@ var requestHandler = function(request, response) {
           }
         });  
       });
-      // send response
-      response.writeHead(201, headers);
-      response.end('Message sent to server.');
+      
+      sendResponse(response, 'message sent to server', 201);
     } else if (request.method === 'OPTIONS') {
-      // send response
-      response.writeHead(200, headers);
-      response.end();
+      sendResponse(response, null);
     } else if (request.method === 'GET') {
       // read the storage file
       fs.readFile('storage.txt', 'utf8', function(err, data) {
@@ -88,15 +85,11 @@ var requestHandler = function(request, response) {
           return JSON.parse(message);
         });
         
-        // send response
-        response.writeHead(200, headers);
-        response.end(JSON.stringify(object));
+        sendResponse(response, object);
       });
     } 
   } else {
-    let statusCode = 404;
-    response.writeHead(404, headers);
-    response.end('404 not found');
+    sendResponse(response, 'Not Found', 404);
   }
 };
 
