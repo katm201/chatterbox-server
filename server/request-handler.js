@@ -30,7 +30,7 @@ var sendResponse = function(response, data, statusCode) {
 };
 
 var actions = {
-  'GET': function(request, response) {
+  'GET': function(request, response, query) {
     fs.readFile('storage.txt', 'utf8', function(err, data) {
       if (err) {
         return console.error(err);
@@ -46,6 +46,13 @@ var actions = {
       object.results = stringArray.map(function(message) {
         return JSON.parse(message);
       });
+      
+      // checks for queries to resort order
+      query = querystring.parse(query) || null;
+      
+      if (query.order && query.order === '-createdAt') {
+        object.results = object.results.reverse();
+      }
       
       sendResponse(response, object);
     });
@@ -80,10 +87,9 @@ var actions = {
 };
 
 var requestHandler = function(request, response) {
-  // Documentation for both request and response can be found in the HTTP section at
-  // http://nodejs.org/documentation/api/
   
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
+  
   var urlInfo = url.parse(request.url);
   
   var query = urlInfo.query;
@@ -96,7 +102,7 @@ var requestHandler = function(request, response) {
   // runs our correct function, depending on the request method
   var action = actions[request.method];
   if (action) {
-    action(request, response);
+    action(request, response, query);
   } else {
     sendResponse(response, 'Not Found', 404);
   }
