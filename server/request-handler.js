@@ -29,6 +29,56 @@ var sendResponse = function(response, data, statusCode) {
   response.end(JSON.stringify(data));
 };
 
+var actions = {
+  'GET': function(request, response) {
+    fs.readFile('storage.txt', 'utf8', function(err, data) {
+      if (err) {
+        return console.error(err);
+      }
+      
+      var object = {};
+      var stringArray = data.split('\n');
+      stringArray = stringArray.filter(function(item) { 
+        if (item !== '') {
+          return true;
+        }
+      });
+      object.results = stringArray.map(function(message) {
+        return JSON.parse(message);
+      });
+      
+      sendResponse(response, object);
+    });
+  },
+  'POST': function(request, response) {
+    var body = '';
+    request.on('data', chunk => { body += chunk; });
+    
+    var date = new Date();
+    var id = date.getTime();
+  
+    request.on('end', chunk => {
+      body[0] === '{' ? body = JSON.parse(body) : body = querystring.parse(body);
+      
+      body.createdAt = date;
+      body.objectId = id;
+      body.text = body.message || body.text;
+      body.message = body.message || body.text;
+
+      fs.appendFile('storage.txt', JSON.stringify(body) + '\n', function(err, data) {
+        if (err) {
+          return console.error(error);
+        }
+      });  
+    });
+    
+    sendResponse(response, 'message sent to server', 201);
+  },
+  'OPTIONS': function(request, response) {
+    sendResponse(response, null);
+  }
+};
+
 var requestHandler = function(request, response) {
   // Documentation for both request and response can be found in the HTTP section at
   // http://nodejs.org/documentation/api/
@@ -38,59 +88,20 @@ var requestHandler = function(request, response) {
   
   var query = urlInfo.query;
   
-  if (urlInfo.pathname === '/classes/messages') {  
-    
-    if (request.method === 'POST') {
-      // build the post request body
-      var body = '';
-      request.on('data', chunk => { body += chunk; });
-      
-      var date = new Date();
-      var id = date.getTime();
-    
-      // add post request to the storage file
-      request.on('end', chunk => {
-        body[0] === '{' ? body = JSON.parse(body) : body = querystring.parse(body);
-        
-        body.createdAt = date;
-        body.objectId = id;
-        body.text = body.message || body.text;
-        body.message = body.message || body.text;
-
-        fs.appendFile('storage.txt', JSON.stringify(body) + '\n', function(err, data) {
-          if (err) {
-            return console.error(error);
-          }
-        });  
-      });
-      
-      sendResponse(response, 'message sent to server', 201);
-    } else if (request.method === 'OPTIONS') {
-      sendResponse(response, null);
-    } else if (request.method === 'GET') {
-      // read the storage file
-      fs.readFile('storage.txt', 'utf8', function(err, data) {
-        if (err) {
-          return console.error(err);
-        }
-        
-        var object = {};
-        var stringArray = data.split('\n');
-        stringArray = stringArray.filter(function(item) { 
-          if (item !== '') {
-            return true;
-          }
-        });
-        object.results = stringArray.map(function(message) {
-          return JSON.parse(message);
-        });
-        
-        sendResponse(response, object);
-      });
-    } 
+  // checks that the client is accessing the correct path
+  if (urlInfo.pathname !== '/classes/messages') {  
+    sendResponse(response, 'Not Found', 404);
+  }
+  
+  // runs our correct function, depending on the request method
+  var action = actions[request.method];
+  if (action) {
+    action(request, response);
   } else {
     sendResponse(response, 'Not Found', 404);
   }
+
+
 };
 
 module.exports.requestHandler = requestHandler;
