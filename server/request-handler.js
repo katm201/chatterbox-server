@@ -46,13 +46,12 @@ var actions = {
       object.results = stringArray.map(function(message) {
         return JSON.parse(message);
       });
-      
-      // checks for queries to resort order
-      query = querystring.parse(query) || null;
-      
-      if (query.order && query.order === '-createdAt') {
-        object.results = object.results.reverse();
-      }
+
+      // checks for queries to re-sort order
+      // causes it to go slow and have trouble re-rendering
+      // if (querystring.parse(query).order !== '-createdAt') {
+      //   object.results = object.results.reverse();
+      // }
       
       sendResponse(response, object);
     });
@@ -106,8 +105,6 @@ var requestHandler = function(request, response) {
   } else {
     sendResponse(response, 'Not Found', 404);
   }
-
-
 };
 
 module.exports.requestHandler = requestHandler;
